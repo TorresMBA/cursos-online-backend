@@ -36,7 +36,9 @@ namespace Aplicacion.Seguridad
                 var listaRoles = new List<string>(resulRoles);
 
                 return new UsuarioData{
-                    NombreCompleto = user.NombreCompleto,
+                    //NombreCompleto = user.NombreCompleto,
+                    Nombre = user.Nombre,
+                    Apellidos = user.Apellidos,
                     UserName = user.UserName,
                     Token = _jwtGenerador.CrearToken(user, listaRoles),
                     Imagen = null,

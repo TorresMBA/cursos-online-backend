@@ -65,7 +65,9 @@ namespace Aplicacion.Seguridad
                 }
 
                 var usuario = new Usuario{
-                    NombreCompleto =  request.Nombre + " " + request.Apellidos,
+                    //NombreCompleto =  request.Nombre + " " + request.Apellidos,
+                    Nombre = request.Nombre,
+                    Apellidos = request.Apellidos,
                     Email = request.Email,   
                     UserName = request.Username                 
                 };
@@ -73,7 +75,9 @@ namespace Aplicacion.Seguridad
                 var resultado = await _userManager.CreateAsync(usuario, request.Password);
                 if(resultado.Succeeded){//Si el resultado es exitoso
                     return new UsuarioData{
-                        NombreCompleto = usuario.NombreCompleto,
+                        //NombreCompleto = usuario.NombreCompleto,
+                        Nombre = usuario.Nombre,
+                        Apellidos = usuario.Apellidos,
                         Token = _jwtGenerador.CrearToken(usuario, null),//Se pasa un null porque recien se esta creando el usuario y no tiene roles
                         Email = usuario.Email,
                         UserName = usuario.UserName

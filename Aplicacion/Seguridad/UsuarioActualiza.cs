@@ -75,7 +75,8 @@ namespace Aplicacion.Seguridad
                 }
 
                 //Actualizando los datos del usuario
-                usuarioIden.NombreCompleto = request.Nombre + " " + request.Apellidos;
+                usuarioIden.Nombre = request.Nombre;
+                usuarioIden.Apellidos = request.Apellidos;
                 usuarioIden.PasswordHash = _passwordHasher.HashPassword(usuarioIden, request.Password);
                 usuarioIden.Email = request.Email;
 
@@ -86,7 +87,9 @@ namespace Aplicacion.Seguridad
                 var resultadoUpdate = await _userManager.UpdateAsync(usuarioIden);
                 if(resultadoUpdate.Succeeded){
                     return new UsuarioData(){
-                        NombreCompleto = usuarioIden.NombreCompleto,
+                       // NombreCompleto = usuarioIden.NombreCompleto,
+                        Nombre = usuarioIden.Nombre,
+                        Apellidos = usuarioIden.Apellidos,
                         UserName = usuarioIden.UserName,
                         Email = usuarioIden.Email,
                         Token = _jwtGnerador.CrearToken(usuarioIden, roles)

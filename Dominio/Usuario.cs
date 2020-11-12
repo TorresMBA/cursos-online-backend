@@ -8,6 +8,9 @@ namespace Dominio
     //Propieades como email password telefono etc
     public class Usuario : IdentityUser
     {
-        public string NombreCompleto { get; set; }
+        //public string NombreCompleto { get; set; }
+        public string Nombre { get; set; }
+
+        public string Apellidos { get; set; }
     }
 }

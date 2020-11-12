@@ -12,9 +12,11 @@ namespace Persistencia
             //dentro de la base de datos
             if(!usuarioManager.Users.Any()){
                 var usuario = new Usuario(){ 
-                    NombreCompleto = "Brian Torres",
-                    UserName = "admin",
-                    Email = "bryan98tm@gmail.com"
+                    //NombreCompleto = "Brian Torres",
+                    Nombre = "Vaxi",
+                    Apellidos = "Drezz",
+                    UserName = "vaxi.drezz",
+                    Email = "vaxi.drezz@gmail.com"
                 };
                 await usuarioManager.CreateAsync(usuario, "brayantm123xD$");
             }
