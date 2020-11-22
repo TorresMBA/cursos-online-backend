@@ -26,5 +26,7 @@ namespace Persistencia
         public DbSet<Instructor> Instructor { get; set; }
 
         public DbSet<Precio> Precio { get; set; }
+
+        public DbSet<Documento> Documento { get; set; }
     }
 }
