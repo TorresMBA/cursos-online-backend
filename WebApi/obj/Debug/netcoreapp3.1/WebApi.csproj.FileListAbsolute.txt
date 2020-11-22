@@ -1,6 +1,5 @@
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\WebApi.exe
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\WebApi.deps.json
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\WebApi.runtimeconfig.json
@@ -84,3 +83,4 @@ C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Micro
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\obj\Debug\netcoreapp3.1\scopedcss\bundle\WebApi.styles.css

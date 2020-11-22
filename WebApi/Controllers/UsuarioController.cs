@@ -11,12 +11,14 @@ namespace WebApi.Controllers
     {
         //EndPoint => http://localhost:5000/api/Usuario/login
         [HttpPost("login")]
+        
         public async Task<ActionResult<UsuarioData>> Login(Login.Ejecuta data){
             return await Mediator.Send(data);
         }
 
         //EndPoint => http://localhost:5000/api/Usuario/registrar
         [HttpPost("registrar")]
+        [AllowAnonymous]
         public async Task<ActionResult<UsuarioData>> RegistrarUsuario(Registrar.Ejecuta data){
             return await Mediator.Send(data);
         }
