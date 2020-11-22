@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System;
 using System.Linq;
 using System.Net;
@@ -28,6 +27,8 @@ namespace Aplicacion.Seguridad
             public string Password { get; set; }
 
             public string UserName { get; set; }
+
+            public ImagenGeneral ImagenPerfil { get; set; }
         }
 
         public class EjecutaValidador : AbstractValidator<Ejecuta>{
@@ -74,6 +75,27 @@ namespace Aplicacion.Seguridad
                     throw new ManejadorException(HttpStatusCode.InternalServerError, new {mensaje = "Este email pertenece a otro usuario"});
                 }
 
+                if(request.ImagenPerfil != null){
+                    //Valida si el usuario tiene una imagen y lo agrega o se modifica con una nueva imagen
+                    var resultadoImagen = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuarioIden.Id)).FirstAsync();
+                    if(resultadoImagen == null){
+                        var imagen = new Documento{
+                            //Convierte de Base64(string) a un tipo byte[]
+                            Contenido = Convert.FromBase64String(request.ImagenPerfil.Data),
+                            Nombre = request.ImagenPerfil.Nombre,
+                            Extension = request.ImagenPerfil.Extension,
+                            ObjetoReferencia = new Guid(usuarioIden.Id),
+                            DocumentoId = Guid.NewGuid(),
+                            FechaCreacion = DateTime.UtcNow
+                        };
+                        _context.Documento.Add(imagen);
+                    }else{
+                        resultadoImagen.Contenido = Convert.FromBase64String(request.ImagenPerfil.Data);
+                        resultadoImagen.Nombre = request.ImagenPerfil.Nombre;
+                        resultadoImagen.Extension = request.ImagenPerfil.Extension;
+                    }
+                }
+                
                 //Actualizando los datos del usuario
                 usuarioIden.Nombre = request.Nombre;
                 usuarioIden.Apellidos = request.Apellidos;
