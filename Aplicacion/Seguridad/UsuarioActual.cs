@@ -44,7 +44,7 @@ namespace Aplicacion.Seguridad
                 var listaRoles = new List<string>(resulRoles);
 
                 //Validaa si el usuario tiene una imagen de perfil
-                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(user.Id)).FirstAsync();     
+                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(user.Id)).FirstOrDefaultAsync();     
                 if(imagenPerfil != null){
                     var imagenCliente = new ImagenGeneral{
                         Data = Convert.ToBase64String(imagenPerfil.Contenido),

@@ -77,7 +77,7 @@ namespace Aplicacion.Seguridad
 
                 if(request.ImagenPerfil != null){
                     //Valida si el usuario tiene una imagen y lo agrega o se modifica con una nueva imagen
-                    var resultadoImagen = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuarioIden.Id)).FirstAsync();
+                    var resultadoImagen = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuarioIden.Id)).FirstOrDefaultAsync();
                     if(resultadoImagen == null){
                         var imagen = new Documento{
                             //Convierte de Base64(string) a un tipo byte[]

@@ -65,7 +65,7 @@ namespace Aplicacion.Seguridad
 
 
                 //
-                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuario.Id)).FirstAsync();
+                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuario.Id)).FirstOrDefaultAsync();
                 if(resultado.Succeeded){
                     if(imagenPerfil != null){
                         var imagenCliente = new ImagenGeneral{
