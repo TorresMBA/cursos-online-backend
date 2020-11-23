@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +10,8 @@ using Dominio;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Persistencia;
 
 namespace Aplicacion.Seguridad
 {
@@ -36,10 +40,13 @@ namespace Aplicacion.Seguridad
 
             public readonly IJwtGenerador _jwtGenerador;
 
-            public Manejador(UserManager<Usuario> userManager, SignInManager<Usuario> signManager, IJwtGenerador jwtGenerador){
+            private readonly CursosOnlineContext _context;
+
+            public Manejador(UserManager<Usuario> userManager, SignInManager<Usuario> signManager, IJwtGenerador jwtGenerador, CursosOnlineContext context){
                 _userManager = userManager;
                 _signInManager = signManager;
                 _jwtGenerador = jwtGenerador;
+                _context = context;
             }
 
             public async Task<UsuarioData> Handle(Ejecuta request, CancellationToken cancellationToken)
@@ -56,18 +63,38 @@ namespace Aplicacion.Seguridad
                 //para transformar de IList(resulRoles) a List
                 var listaRoles = new List<string>(resulRoles);
 
-                if(resultado.Succeeded){
-                    return new UsuarioData() {
-                        //NombreCompleto = usuario.NombreCompleto,
-                        Nombre = usuario.Nombre,
-                        Apellidos = usuario.Apellidos,
-                        Token = _jwtGenerador.CrearToken(usuario, listaRoles),
-                        UserName = usuario.UserName,
-                        Email = usuario.Email,
-                        Imagen = null
-                    };
-                }
 
+                //
+                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuario.Id)).FirstAsync();
+                if(resultado.Succeeded){
+                    if(imagenPerfil != null){
+                        var imagenCliente = new ImagenGeneral{
+                            Data = Convert.ToBase64String(imagenPerfil.Contenido),
+                            Extension = imagenPerfil.Extension,
+                            Nombre = imagenPerfil.Nombre
+                        };
+
+                        return new UsuarioData() {
+                            //NombreCompleto = usuario.NombreCompleto,
+                            Nombre = usuario.Nombre,
+                            Apellidos = usuario.Apellidos,
+                            Token = _jwtGenerador.CrearToken(usuario, listaRoles),
+                            UserName = usuario.UserName,
+                            Email = usuario.Email,
+                            ImagenPerfil = imagenCliente
+                        };
+                    }else{
+                        return new UsuarioData() {
+                            //NombreCompleto = usuario.NombreCompleto,
+                            Nombre = usuario.Nombre,
+                            Apellidos = usuario.Apellidos,
+                            Token = _jwtGenerador.CrearToken(usuario, listaRoles),
+                            UserName = usuario.UserName,
+                            Email = usuario.Email,
+                            Imagen = null
+                        };
+                    }   
+                }
                 throw new ManejadorException(HttpStatusCode.Unauthorized);
             }
         }

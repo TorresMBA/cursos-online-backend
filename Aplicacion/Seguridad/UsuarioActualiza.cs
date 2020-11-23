@@ -107,6 +107,17 @@ namespace Aplicacion.Seguridad
                 var roles = new List<string>(resultadoRoles);
 
                 var resultadoUpdate = await _userManager.UpdateAsync(usuarioIden);
+
+                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuarioIden.Id)).FirstAsync();
+                ImagenGeneral imagenGeneral = null;
+                if(imagenGeneral != null){
+                    imagenGeneral = new ImagenGeneral{
+                        Data = Convert.ToBase64String(imagenPerfil.Contenido),
+                        Nombre = imagenPerfil.Nombre,
+                        Extension = imagenPerfil.Extension
+                    };
+                }
+
                 if(resultadoUpdate.Succeeded){
                     return new UsuarioData(){
                        // NombreCompleto = usuarioIden.NombreCompleto,
@@ -114,7 +125,8 @@ namespace Aplicacion.Seguridad
                         Apellidos = usuarioIden.Apellidos,
                         UserName = usuarioIden.UserName,
                         Email = usuarioIden.Email,
-                        Token = _jwtGnerador.CrearToken(usuarioIden, roles)
+                        Token = _jwtGnerador.CrearToken(usuarioIden, roles),
+                        ImagenPerfil = imagenGeneral
                     };
                 }
 
