@@ -15,7 +15,7 @@ namespace Aplicacion.Seguridad
 {
     public class UsuarioActual
     {
-        public class Ejecuta : IRequest<UsuarioData>{}
+        public class Ejecuta : IRequest<UsuarioData>{ }
 
         public class Manejador : IRequestHandler<Ejecuta, UsuarioData>
         {

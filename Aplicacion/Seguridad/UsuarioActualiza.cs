@@ -110,7 +110,7 @@ namespace Aplicacion.Seguridad
 
                 var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuarioIden.Id)).FirstAsync();
                 ImagenGeneral imagenGeneral = null;
-                if(imagenGeneral != null){
+                if(imagenPerfil != null){
                     imagenGeneral = new ImagenGeneral{
                         Data = Convert.ToBase64String(imagenPerfil.Contenido),
                         Nombre = imagenPerfil.Nombre,
