@@ -45,7 +45,7 @@ namespace Aplicacion.Seguridad
 
                 //Validaa si el usuario tiene una imagen de perfil
                 var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(user.Id)).FirstOrDefaultAsync();     
-                if(imagenPerfil != null){
+                if(imagenPerfil != null){//Si es imagenPerfil existe, si es diferente de nulo
                     var imagenCliente = new ImagenGeneral{
                         Data = Convert.ToBase64String(imagenPerfil.Contenido),
                         Extension = imagenPerfil.Extension,
@@ -61,14 +61,14 @@ namespace Aplicacion.Seguridad
                         ImagenPerfil = imagenCliente
                     };
                 }else{
-                    return new UsuarioData{
+                     return new UsuarioData{
                         //NombreCompleto = user.NombreCompleto,
                         Nombre = user.Nombre,
                         Apellidos = user.Apellidos,
                         UserName = user.UserName,
                         Token = _jwtGenerador.CrearToken(user, listaRoles),
                         Email = user.Email, 
-                    };    
+                    };   
                 }
                 
             }

@@ -13,7 +13,7 @@ namespace Aplicacion.Documentos
     {
         public class Ejecuta : IRequest{
 
-            public Guid ObjetoReferencia { get; set; }
+            public Guid? ObjetoReferencia { get; set; }
 
             public string Data { get; set; }
 
@@ -33,7 +33,7 @@ namespace Aplicacion.Documentos
             public async Task<Unit> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
                 //Evaluar si existe el archivo
-                var documento = await _context.Documento.Where(x => x.ObjetoReferencia == request.ObjetoReferencia).FirstAsync();
+                var documento = await _context.Documento.Where(x => x.ObjetoReferencia == request.ObjetoReferencia).FirstOrDefaultAsync();
                 
                 //Si es igual a null significa que puedo subir el archivo, guardar directramente
                 if(documento == null){
@@ -43,7 +43,8 @@ namespace Aplicacion.Documentos
                         Nombre = request.Nombre,
                         Extension = request.Extension,
                         DocumentoId = Guid.NewGuid(),
-                        FechaCreacion = DateTime.UtcNow
+                        FechaCreacion = DateTime.UtcNow,
+                        ObjetoReferencia = request.ObjetoReferencia ?? Guid.Empty
                     };
 
                     _context.Documento.Add(doc);

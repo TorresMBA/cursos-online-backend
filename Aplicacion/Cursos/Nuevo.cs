@@ -15,7 +15,7 @@ namespace Aplicacion.Cursos
     {
         public class Ejecuta : IRequest{
 
-            //public int CursoId { get; set; } Se Elimina porque se auto genera
+            public Guid? CursoId { get; set; } 
 
             //[Required(ErrorMessage="Por favor ingrese el titulo")]
             public string Titulo { get; set; }
@@ -50,9 +50,13 @@ namespace Aplicacion.Cursos
             }
 
             public async Task<Unit> Handle(Ejecuta request, CancellationToken cancellationToken)
-            {
-                //Inserta datos a la tabla Curso
+            {   
+                //Se agrega esta logica para ver si recibimos un guid del frontend, validar para no crear una nuevo 
                 Guid _cursoId = Guid.NewGuid();
+                if(request.CursoId != null){
+                    _cursoId = request.CursoId ?? Guid.NewGuid();
+                }
+                //Inserta datos a la tabla Curso
                 var curso = new Curso{
                     CursoId = _cursoId,
                     Titulo = request.Titulo,

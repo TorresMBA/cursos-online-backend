@@ -9,7 +9,7 @@ namespace WebApi.Controllers
     public class DocumentoController : MiControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult<Unit>>GuardarArchivo(SubirArchivo.Ejecuta data){
+        public async Task<ActionResult<Unit>>   GuardarArchivo(SubirArchivo.Ejecuta data){
             return await Mediator.Send(data);
         }
 
