@@ -19,7 +19,8 @@ namespace Persistencia.DapperConexion.Paginacion
         {
             PaginacionModel paginacionModel = new PaginacionModel();
             List<IDictionary<string, object>> listaReporte = null;
-            int totalRecords = 0, totalPaginas = 0;
+            int totalRecords = 0;
+            int totalPaginas = 0;
             try{    
                 var connection = _factoryConnection.GetConnection();
 
@@ -37,7 +38,7 @@ namespace Persistencia.DapperConexion.Paginacion
                 parameters.Add("@TotalPaginas", totalPaginas, DbType.Int32, ParameterDirection.Output);
 
                 var result = await connection.QueryAsync(storeProcedure, parameters, commandType: CommandType.StoredProcedure);
-                listaReporte = result.Select(x => (IDictionary<string, object>) x).ToList();
+                listaReporte = result.Select(x => (IDictionary<string, object>)x).ToList();
                 paginacionModel.ListaRecords = listaReporte;
                 paginacionModel.NumeroPaginas = parameters.Get<int>("@TotalPaginas");
                 paginacionModel.TotalRecords = parameters.Get<int>("@TotalRecords");

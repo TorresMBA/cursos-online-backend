@@ -30,7 +30,7 @@ namespace Aplicacion.Cursos
                 var storedProdecure = "usp_Obtener_Curso_Paginacion";
                 var ordenamiento = "Titulo";
                 var parametros = new Dictionary<string, object>();
-                parametros.Add("@NombreCurso", request.Titulo);
+                parametros.Add("NombreCurso", request.Titulo);
                 return await _paginacion.DevolverPaginacion(storedProdecure, request.NumeroPagina, request.CantidadElementos, parametros, ordenamiento);
             }
         }

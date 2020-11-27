@@ -53,6 +53,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("report")]
+        //[AllowAnonymous]
         public async Task<ActionResult<PaginacionModel>> Paginacion(PaginacionCurso.Ejecuta data){
             return await Mediator.Send(data);
         }
