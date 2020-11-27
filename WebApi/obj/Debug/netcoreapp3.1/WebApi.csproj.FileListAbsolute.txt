@@ -84,3 +84,5 @@ C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Swash
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\obj\Debug\netcoreapp3.1\scopedcss\bundle\WebApi.styles.css
+C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\iTextSharp.LGPLv2.Core.dll
+C:\Users\bryan\source\repos\ProyectoNetCore\WebApi\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
